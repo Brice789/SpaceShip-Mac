@@ -28,6 +28,11 @@ public:
     void Move(double screenWidth, double screenHeight) override;
 
     string GetTypeName() override;
+
+    bool warning = false;
+
+    void SetWarning(bool state) { warning = state; }
+    bool IsWarning() const { return warning; }
 };
 
 #endif // SPACESHIP_HPP

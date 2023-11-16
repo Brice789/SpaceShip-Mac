@@ -78,6 +78,40 @@ Model::Model(int screenWidth, int screenHeight, Framework* framwework) : m_scree
 
 }
 
+
+
+
+
+void Model::majData() {
+    spaceship->SetWarning(false); // Réinitialiser l'état d'alerte à chaque frame
+
+    for (FlyingObject* flyingObject : flyingObjects) {
+        flyingObject->Move(m_screenWidth, m_screenHeight);
+
+        // Détecter les collisions avec les astéroïdes
+        if (flyingObject->GetTypeName() == "Asteroid" && FlyingObject::Collide(spaceship, flyingObject)) {
+            spaceship->SetWarning(true);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void Model::appliqueAction(int input) {
     switch (input)
     {
@@ -140,12 +174,12 @@ if (!missile->IsActive()) { // Only fire if there isn't an active missile
     }
 }
 
-void Model::majData() {
-    std::cout << "Updating game objects." << std::endl;
-    for (FlyingObject* flyingObject : flyingObjects) {
-        flyingObject->Move(m_screenWidth, m_screenHeight);
-    }
-}
+// void Model::majData() {
+//     std::cout << "Updating game objects." << std::endl;
+//     for (FlyingObject* flyingObject : flyingObjects) {
+//         flyingObject->Move(m_screenWidth, m_screenHeight);
+//     }
+// }
 
 std::vector<FlyingObject*> Model::GetFlyingObjects() {
     return flyingObjects; // ou tout autre code pour retourner vos objets volants
